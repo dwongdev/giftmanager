@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gast gebruikers beheren</title>
+    <title>Administrar Usuarios Invitados</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" crossorigin="anonymous"></script>
     <link rel="icon" href="/favicon.ico" type="image/png">
@@ -247,46 +247,46 @@
         <div class="bg-gray-800 text-white w-64 flex flex-col sidebar" id="sidebar">
             <div class="px-6 py-4">
                 <a href="/admin" class="text-2xl font-semibold">
-                    Beheerder Dashboard
+                    Panel de Administración
                 </a>
             </div>
             <nav class="flex-1 px-4 py-6 space-y-6">
                 <!-- Group 1 -->
                 <div>
-                    <h2 class="text-sm font-semibold uppercase text-gray-400 mb-2">Beheer</h2>
+                    <h2 class="text-sm font-semibold uppercase text-gray-400 mb-2">Gestión</h2>
                     <a href="{{ url_for('manage_users') }}" class="block px-4 py-2 rounded hover:bg-gray-700 transition">
-                        <i class="fas fa-users"></i> Gebruikers
+                        <i class="fas fa-users"></i> Usuarios
                     </a>
                     <a href="{{ url_for('secret_santa') }}" class="block px-4 py-2 rounded hover:bg-gray-700 transition">
-                        <i class="fas fa-gift"></i> Secret Santa
+                        <i class="fas fa-gift"></i> Amigo Invisible
                     </a>
                     <a href="{{ url_for('add_user') }}" class="block px-4 py-2 rounded hover:bg-gray-700 transition">
-                        <i class="fas fa-user-plus"></i> Gebruiker toevoegen
+                        <i class="fas fa-user-plus"></i> Añadir Usuario
                     </a>
                     <a href="{{ url_for('manage_groups') }}" class="block px-4 py-2 rounded hover:bg-gray-700 transition">
-                        <i class="fas fa-people-group"></i> Families
+                        <i class="fas fa-people-group"></i> Familias
                     </a>
                     <a href="{{ url_for('manage_guest_users') }}" class="block px-4 py-2 rounded hover:bg-gray-700 transition">
-                        <i class="fas fa-user-clock"></i> Gast gebruikers
+                        <i class="fas fa-user-clock"></i> Usuarios Invitados
                     </a>
                 </div>
                 <!-- Group 2 -->
                 <div>
-                    <h2 class="text-sm font-semibold uppercase text-gray-400 mb-2">Instellingen & Onderhoud</h2>
+                    <h2 class="text-sm font-semibold uppercase text-gray-400 mb-2">Configuración y Mantenimiento</h2>
                     <a href="{{ url_for('delete_old_gift_ideas_page') }}" class="block px-4 py-2 rounded hover:bg-gray-700 transition">
-                        <i class="fas fa-trash"></i> Verwijderings Script
+                        <i class="fas fa-trash"></i> Borrado Automático de Ideas
                     </a>
                     <a href="{{ url_for('edit_email_settings') }}" class="block px-4 py-2 rounded hover:bg-gray-700 transition">
-                        <i class="fas fa-envelope"></i> E-mail instellingen
+                        <i class="fas fa-envelope"></i> Ajustes de Correo Electrónico
                     </a>
                     <a href="{{ url_for('edit_login_message') }}" class="block px-4 py-2 rounded hover:bg-gray-700 transition">
-                        <i class="fas fa-user-cog"></i> Login instellingen
+                        <i class="fas fa-user-cog"></i> Ajustes de Inicio de Sesión
                     </a>
                     <a href="{{ url_for('setup_oidc') }}" class="block px-4 py-2 rounded hover:bg-gray-700 transition">
-                        <i class="fas fa-shield-halved"></i> OIDC instellingen
+                        <i class="fas fa-shield-halved"></i> Ajustes OICD
                     </a>
                     <a href="{{ url_for('setup_advanced') }}" class="block px-4 py-2 rounded hover:bg-gray-700 transition">
-                        <i class="fas fa-user-cog"></i> Geavanceerd
+                        <i class="fas fa-user-cog"></i> Ajustes Avanzados
                     </a>
                 </div>
             </nav>
@@ -300,9 +300,9 @@
                         <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
                             <i class="fas fa-bars"></i>
                         </button>
-                        <h2 class="text-xl font-semibold">Gast gebruikers beheren</h2>
+                        <h2 class="text-xl font-semibold">Administrar Usuarios Invitados</h2>
                     </div>
-                    <a href="{{ url_for('dashboard') }}" class="text-red-500 hover:underline">Naar Dashboard</a>
+                    <a href="{{ url_for('dashboard') }}" class="text-red-500 hover:underline">Volver al Panel Principal</a>
                 </div>
             </header>
 
@@ -319,47 +319,47 @@
                 {% endwith %}
 
                 <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-4xl mx-auto section">
-                    <h3 class="text-2xl font-semibold text-center mb-6">Gast gebruikers beheren</h3>
+                    <h3 class="text-2xl font-semibold text-center mb-6">Administrar Usuarios Invitados</h3>
 
                     <!-- Form for creating new guest user -->
                     <form method="POST" class="mb-8" onsubmit="return validateGuestForm()">
                         <div class="mb-6">
-                            <h4 class="text-xl font-semibold mb-4">Gast gebruiker aanmaken</h4>
+                            <h4 class="text-xl font-semibold mb-4">Crear Nuevo Invitado</h4>
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                                 <div>
-                                    <label for="display_name" class="block font-medium mb-2">Weergavenaam:</label>
-                                    <input type="text" id="display_name" name="display_name" 
-                                           class="border rounded py-2 px-3 w-full inputer" 
-                                           placeholder="e.g., Uncle John" required>
-                                    <small class="text-gray-500">Deze naam wordt getoond wanneer gast items als gekocht markeert</small>
+                                    <label for="display_name" class="block font-medium mb-2">Nombre:</label>
+                                    <input type="text" id="display_name" name="display_name"                                            
+                                        class="border rounded py-2 px-3 w-full inputer"
+                                        placeholder="e.g., Uncle John" required>
+                                    <small class="text-gray-500">Este será el nombre que se mostrará cuando un Invitado marque una idea como comprada</small>
                                 </div>
                                 <div>
-                                    <label for="password" class="block font-medium mb-2">Wachtwoord:</label>
+                                    <label for="password" class="block font-medium mb-2">Contraseña:</label>
                                     <input type="password" id="password" name="password" 
                                            class="border rounded py-2 px-3 w-full inputer" required>
                                 </div>
                             </div>
 
                             <div class="mb-4">
-                                <label class="block font-medium mb-2">Type toegang:</label>
+                                <label class="block font-medium mb-2">Tipo de Acceso:</label>
                                 <div class="flex space-x-4">
                                     <label class="inline-flex items-center">
-                                        <input type="radio" name="access_type" id="access_family" 
-                                               value="family" checked class="form-radio">
-                                        <span class="ml-2">Toegang per familie</span>
+                                        <input type="radio" name="access_type" id="access_family"                                                
+                                        value="family" checked class="form-radio">
+                                        <span class="ml-2">Acceso a Familias</span>
                                     </label>
                                     <label class="inline-flex items-center">
-                                        <input type="radio" name="access_type" id="access_people" 
-                                               value="people" class="form-radio">
-                                        <span class="ml-2">Toegang voor specifieke gebruikers</span>
+                                        <input type="radio" name="access_type" id="access_people"                                                
+                                        value="people" class="form-radio">
+                                        <span class="ml-2">Acceso a Personas</span>
                                     </label>
                                 </div>
                             </div>
 
                             <!-- Family Access Section -->
                             <div id="family-access" class="access-section mb-4">
-                                <label class="block font-medium mb-2">Selecteer families:</label>
+                                <label class="block font-medium mb-2">Seleccionar Familias:</label>
                                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-48 overflow-y-auto p-2 border rounded">
                                     {% for group in all_groups %}
                                         {% if not group.startswith('guest_') %}
@@ -375,7 +375,7 @@
 
                             <!-- People Access Section -->
                             <div id="people-access" class="access-section mb-4" style="display: none;">
-                                <label class="block font-medium mb-2">Selecteer Personen:</label>
+                                <label class="block font-medium mb-2">Seleccionar Personas:</label>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-48 overflow-y-auto p-2 border rounded">
                                     {% for user in all_users %}
                                     {% if not user.get('guest') %}
@@ -390,24 +390,24 @@
                             </div>
 
                             <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
-                                Gast gebruiker aanmaken
+                                Crear
                             </button>
                         </div>
                     </form>
 
                     <!-- Existing Guest Users -->
                     <div>
-                        <h4 class="text-xl font-semibold mb-4">Bestaande gast gebruikers</h4>
+                        <h4 class="text-xl font-semibold mb-4">Usuarios Invitados Existentes</h4>
                         {% if guest_users %}
                         <div class="overflow-x-auto">
                             <table class="min-w-full table-auto border-collapse border border-gray-300">
                                 <thead>
                                     <tr>
-                                        <th class="border px-4 py-2 text-left">Gebruikersnaam</th>
-                                        <th class="border px-4 py-2 text-left">Weergave naam</th>
-                                        <th class="border px-4 py-2 text-left">Toegang type</th>
-                                        <th class="border px-4 py-2 text-left">Toegang details</th>
-                                        <th class="border px-4 py-2 text-left">Acties</th>
+                                        <th class="border px-4 py-2 text-left">Nombre de usuario</th>
+                                        <th class="border px-4 py-2 text-left">Nombre de Visualización</th>
+                                        <th class="border px-4 py-2 text-left">Tipo de Acceso</th>
+                                        <th class="border px-4 py-2 text-left">Detalles de Acceso</th>
+                                        <th class="border px-4 py-2 text-left">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -417,19 +417,19 @@
                                         <td class="border px-4 py-2">{{ guest.full_name }}</td>
                                         <td class="border px-4 py-2">
                                             {% if guest.access_type == 'family' %}
-                                                <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">Familie toegang</span>
+                                                <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">Acceso a Familias</span>
                                             {% else %}
-                                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Personen toegang</span>
+                                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Acceso a Personas</span>
                                             {% endif %}
                                         </td>
                                         <td class="border px-4 py-2">
                                             {% if guest.access_type == 'family' %}
                                                 <div class="text-sm">
-                                                    <strong>Families:</strong> {{ guest.groups|join(', ') }}
+                                                    <strong>Familias:</strong> {{ guest.groups|join(', ') }}
                                                 </div>
                                             {% else %}
                                                 <div class="text-sm">
-                                                    <label>Personen:</label> 
+                                                    <strong>Personas::</strong> 
                                                     {% for username in guest.access_users %}
                                                         {{ get_full_name(username) }}{% if not loop.last %}, {% endif %}
                                                     {% endfor %}
@@ -441,7 +441,7 @@
                                                   style="display: inline;" 
                                                   onsubmit="return confirm('Are you sure you want to delete guest user {{ guest.full_name }}?');">
                                                 <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-3 rounded text-sm">
-                                                    Verwijderen
+                                                    Borrar
                                                 </button>
                                             </form>
                                         </td>
@@ -453,7 +453,7 @@
                         {% else %}
                         <div class="text-center py-8 text-gray-500">
                             <i class="fas fa-users fa-3x mb-4"></i>
-                            <p>Er zijn nog geen gast gebruikers geconfigureerd.</p>
+                            <p>No hay usuarios invitados.</p>
                         </div>
                         {% endif %}
                     </div>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nieuwe suggesties</title>
+    <title>Nuevas Ideas</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css">
     <link rel="icon" href="/favicon.ico" type="image/png">
     <meta name="theme-color" content="#000000"/>
@@ -93,6 +93,11 @@
         [data-theme="dark"] .helplogo {
             filter: invert(1) brightness(1.5);
         }
+
+        .custom-field-group {
+            background-color: var(--card-bg-color);
+            border-color: var(--card-border-color);
+        }
     </style>
     <script>
         // Inline script to apply the theme from the cookie immediately
@@ -111,7 +116,7 @@
             const theme = getThemeFromCookie();
             document.documentElement.setAttribute('data-theme', theme);
         })();
-// Function to extract the og:image URL from the webpage using the server-side endpoint
+        // Function to extract the og:image URL from the webpage using the server-side endpoint
 async function fetchOGImage(url) {
     try {
         const response = await fetch(`/fetch_og_image?url=${encodeURIComponent(url)}`);
@@ -194,63 +199,101 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+let customFieldCounter = 0;
+
+function addCustomField() {
+    const container = document.getElementById('customFieldsContainer');
+    const fieldId = customFieldCounter++;
+    
+    const fieldDiv = document.createElement('div');
+    fieldDiv.className = 'custom-field-group border rounded border-gray-300';
+    fieldDiv.innerHTML = `
+        <div class="flex items-center gap-2">
+            <input type="text" 
+                   name="custom_field_key_${fieldId}" 
+                   placeholder="Field name (e.g., Shoe Size)" 
+                   class="flex-1 border inputer rounded py-2 px-3 text-sm">
+            <input type="text" 
+                   name="custom_field_value_${fieldId}" 
+                   placeholder="Value (e.g., 6)" 
+                   class="flex-1 border inputer rounded py-2 px-3 text-sm">
+            <button type="button" 
+                    onclick="this.parentElement.parentElement.remove()" 
+                    class="bg-red-500 text-white font-bold py-1 px-2 rounded text-sm">
+                ✕
+            </button>
+        </div>
+    `;
+    container.appendChild(fieldDiv);
+};
     </script>
 </head>
 <body class="body font-sans">
     <header class="header text-gray-900 p-4">
         <nav class="container mx-auto flex justify-between items-center">
             <button id="backButton" class="text-2xl px-4 py-2">
-                Terug
+                Atrás
             </button>
         </nav>
     </header>
     <main class="main container mx-auto p-8">
         <section class="section shadow-lg rounded-lg p-6">
-            <h1 class="text-2xl font-semibold mb-4">Suggesties toevoegen</h1>
-            <form action="{{ url_for('add2', selected_user_id=selected_user_id) }}" method="post" enctype="multipart/form-data">
+            <h1 class="text-2xl font-semibold mb-4">Añadir Idea</h1>
+            <form action="{{ url_for('add_idea', selected_user_id=default_user) }}" method="post">
                 <div class="mb-4">
-                    <label for="user" class="block sec-text font-bold">Toevoegen aan:</label>
+                    <label for="user" class="block sec-text font-bold">Añadir a:</label>
                     <select name="user" id="user" class="border inputer rounded py-2 px-3 w-full" required>
-                        <option disabled selected value> -- Kies hier -- </option>
                         {% for user in user_list %}
-                        <option value="{{ user['username'] }}">{{ user['full_name'] }}</option>
+                        <option value="{{ user['username'] }}" {% if user['username'] == default_user %}selected{% endif %}>{{ user['full_name'] }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <div class="mb-4">
-                    <label for="name" class="block sec-text font-bold">Titel:</label>
+                    <label for="name" class="block sec-text font-bold">Nombre:</label>
                     <input type="text" name="name" id="name" class="border inputer rounded py-2 px-3 w-full" required>
                 </div>
                 <div class="mb-4">
-                    <label for="description" class="block sec-text font-bold">Beschrijving (optioneel):</label>
+                    <label for="description" class="block sec-text font-bold">Descripción (Opcional):</label>
                     <textarea name="description" id="description" class="border inputer rounded py-2 px-3 w-full"></textarea>
                 </div>
                 <div class="mb-4">
-                    <label for="link" class="block sec-text font-bold">Link (Optioneel):</label>
+                    <label for="link" class="block sec-text font-bold">Enlace (Opcional):</label>
                     <input type="url" name="link" id="link" class="border inputer rounded py-2 px-3 w-full">
                 </div>
                 {% if imgenabled %}
                 <div id="imageContainer" style="width: 32%;"></div> <!-- Display the OG image here -->
                 <div id="manualImageUrlContainer" class="mb-4" style="display: none;">
-                    <label for="manualImageUrl" class="block sec-text font-bold">Voer afbeelding URL in (optioneel):</label>
+                    <label for="manualImageUrl" class="block sec-text font-bold">URL de la Imagen (Opcional):</label>
                     <input type="url" name="manualImageUrl" id="manualImageUrl" class="border inputer rounded py-2 px-3 w-full">
                 </div>
                 {% endif %}
                 <input type="hidden" id="imagePath" name="imagePath"> <!-- Hidden input to store the image URL -->
                 <div class="mb-4">
-                    <label for="value" class="block sec-text font-bold">Geschatte waarde (Optioneel):</label>
-                    <input type="number" id="value" name="value" step="any" placeholder="Geschatte waarde" 
+                    <label for="value" class="block sec-text font-bold">Valor Aproximado(Opcional):</label>
+                    <input type="number" id="value" name="value" step="any" placeholder="Valor Aproximado"
                         class="border rounded inputer py-2 px-3 w-full">
                 </div>
-                <button type="submit" class="bg-green-500 text-white px-3 py-2 rounded">Bevestigen</button>
+                <div class="mb-4">
+                    <label class="block sec-text font-bold">Campos Adicionales (Opcional):</label>
+                    <div id="customFieldsContainer" class="space-y-3 mt-2">
+                        <!-- Custom fields will be dynamically added here -->
+                    </div>
+                    <button type="button" 
+                            onclick="addCustomField()" 
+                            class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-sm">
+                        + Añadir Campo
+                    </button>
+                </div>
+                <button type="submit" class="bg-green-500 text-white px-3 py-2 rounded">Enviar</button>
             </form>
         </section>
-    </main>      
+    </main>
     <script>
-    const backButton = document.getElementById('backButton');
-    backButton.addEventListener('click', () => {
-        window.location.href = '/dashboard'; // Replace '/dashboard' with the actual URL of your dashboard page
-    });
+        const backButton = document.getElementById('backButton');
+        backButton.addEventListener('click', () => {
+            window.location.href = '/dashboard'; // Replace '/dashboard' with the actual URL of your dashboard page
+        });
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')

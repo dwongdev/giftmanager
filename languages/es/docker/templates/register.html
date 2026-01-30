@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registreren - Gift Manager</title>
+    <title>Registro - Gift Manager</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     <link rel="icon" href="/favicon.ico" type="image/png">
     <meta name="theme-color" content="#000000"/>
@@ -117,13 +117,13 @@
     <header class="header p-4">
         <nav class="container mx-auto flex justify-between items-center">
             <button id="backButton" class="text-2xl px-4 py-2">
-                Terug
+                Atrás
             </button>
         </nav>
     </header>
     <main class="main container mx-auto p-8">
         <div class="section shadow-lg rounded-lg p-6">
-            <h1 class="text-2xl font-semibold mb-4" style="color: var(--text-color);">Registreren</h1>
+            <h1 class="text-2xl font-semibold mb-4" style="color: var(--text-color);">Registro</h1>
             
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
@@ -137,81 +137,81 @@
 
             <form method="POST">
                 <div class="mb-4">
-                    <label for="username" class="block sec-text font-bold">Gebruikersnaam voor de login:</label>
+                    <label for="username" class="block sec-text font-bold">Nombre Inicio de Sesión:</label>
                     <input type="text" name="username" id="username" class="border rounded py-2 px-3 w-full inputer" required>
                 </div>
                 <div class="mb-4">
-                    <label for="full_name" class="block sec-text font-bold">Volledige naam:</label>
+                    <label for="full_name" class="block sec-text font-bold">Nombre Completo:</label>
                     <input type="text" name="full_name" id="full_name" class="border rounded py-2 px-3 w-full inputer" required>
                 </div>
                 <div class="mb-4">
-                    <label for="confirm_password" class="block sec-text font-bold">Wachtwoord:</label>
+                    <label for="password" class="block sec-text font-bold">Contraseña:</label>
                     <input type="password" name="password" id="password" class="border rounded py-2 px-3 w-full inputer" required>
                 </div>
                 <div class="mb-4">
-                    <label for="confirm_password" class="block sec-text font-bold">Bevestig Wachtwoord:</label>
+                    <label for="confirm_password" class="block sec-text font-bold">Confirmar Contraseña:</label>
                     <input type="password" name="confirm_password" id="confirm_password" class="border rounded py-2 px-3 w-full inputer" required>
                 </div>
                 <div class="mb-4">
-                    <label for="email" class="block sec-text font-bold">E-mail (optioneel):</label>
+                    <label for="email" class="block sec-text font-bold">Correo Electrónico (opcional):</label>
                     <input type="email" name="email" id="email" class="border rounded py-2 px-3 w-full inputer">
                 </div>
                 <div class="mb-4">
-                    <label> Geboortedatum (optioneel):</label>
+                    <label for="birthday" class="block sec-text font-bold">Cumpleaños (opcional):</label>
                     <input type="date" name="birthday" id="birthday" class="border rounded py-2 px-3 w-full inputer">
                 </div>
 
                 {% if joining_code %}
                 <div class="mb-4">
-                    <label for="joining_code" class="block sec-text font-bold">Registratie code</label>
+                    <label for="joining_code" class="block sec-text font-bold">Código de Unión:</label>
                     <input type="text" name="joining_code" id="joining_code" class="border rounded py-2 px-3 w-full inputer" required>
-                    <p class="text-sm sec-text mt-1">Vraag uw familie om de code voor inschrijven</p>
+                    <p class="text-sm sec-text mt-1">Pregunta a tu familia por el código de unión</p>
                 </div>
                 {% endif %}
 
                 <div class="mb-4">
-                    <label for="avatar" class="block sec-text font-bold">Avatar:</label>
+                    <label for="avatar" class="block sec-text font-bold">Imagen de Perfil:</label>
                     <select name="avatar" id="avatar" class="border rounded py-2 px-3 w-full inputer" required>
-                        <option value="icons/avatar1.png">Avatar 1</option>
-                        <option value="icons/avatar2.png">Avatar 2</option>
-                        <option value="icons/avatar3.png">Avatar 3</option>
-                        <option value="icons/avatar4.png">Avatar 4</option>
-                        <option value="icons/avatar5.png">Avatar 5</option>
-                        <option value="icons/avatar6.png">Avatar 6</option>
+                        <option value="icons/avatar1.png">Opción 1</option>
+                        <option value="icons/avatar2.png">Opción 2</option>
+                        <option value="icons/avatar3.png">Opción 3</option>
+                        <option value="icons/avatar4.png">Opción 4</option>
+                        <option value="icons/avatar5.png">Opción 5</option>
+                        <option value="icons/avatar6.png">Opción 6</option>
                     </select>
                     
                     <div class="mt-4">
-                        <h3 class="sec-text font-bold mb-2">Avatar voorbeeldweergave:</h3>
+                        <h3 class="sec-text font-bold mb-2">Vista previa:</h3>
                         <div class="flex flex-wrap gap-4">
                             <div class="text-center">
-                                <h4 class="sec-text">Avatar 1</h4>
+                                <h4 class="sec-text">Opción 1</h4>
                                 <img class="user-avatar sec-text mx-auto" src="{{ url_for('static', filename='icons/avatar1.png') }}" width="50" height="50">
                             </div>
                             <div class="text-center">
-                                <h4 class="sec-text">Avatar 2</h4>
+                                <h4 class="sec-text">Opción 2</h4>
                                 <img class="user-avatar sec-text mx-auto" src="{{ url_for('static', filename='icons/avatar2.png') }}" width="50" height="50">
                             </div>
                             <div class="text-center">
-                                <h4 class="sec-text">Avatar 3</h4>
+                                <h4 class="sec-text">Opción 3</h4>
                                 <img class="user-avatar sec-text mx-auto" src="{{ url_for('static', filename='icons/avatar3.png') }}" width="50" height="50">
                             </div>
                             <div class="text-center">
-                                <h4 class="sec-text">Avatar 4</h4>
+                                <h4 class="sec-text">Opción 4</h4>
                                 <img class="user-avatar sec-text mx-auto" src="{{ url_for('static', filename='icons/avatar4.png') }}" width="50" height="50">
                             </div>
                             <div class="text-center">
-                                <h4 class="sec-text">Avatar 5</h4>
+                                <h4 class="sec-text">Opción 5</h4>
                                 <img class="user-avatar sec-text mx-auto" src="{{ url_for('static', filename='icons/avatar5.png') }}" width="50" height="50">
                             </div>
                             <div class="text-center">
-                                <h4 class="sec-text">Avatar 6</h4>
+                                <h4 class="sec-text">Opción 6</h4>
                                 <img class="user-avatar sec-text mx-auto" src="{{ url_for('static', filename='icons/avatar6.png') }}" width="50" height="50">
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">Registreren</button>
+                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">Registrarse</button>
             </form>
         </div>
     </main>

@@ -429,7 +429,7 @@
                                                 </div>
                                             {% else %}
                                                 <div class="text-sm">
-                                                    <0>Personen:</0> 
+                                                    <label>Personen:</label> 
                                                     {% for username in guest.access_users %}
                                                         {{ get_full_name(username) }}{% if not loop.last %}, {% endif %}
                                                     {% endfor %}
